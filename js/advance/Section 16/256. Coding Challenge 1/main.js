@@ -1,5 +1,5 @@
 const whereAmI = function (lat, lng) {
-  fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
+  fetch(`https://geocode.xyz/${lat},${lng}?json=1`)
     .then((res) => {
       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
       return res.json();
@@ -7,12 +7,10 @@ const whereAmI = function (lat, lng) {
     .then((data) => {
       console.log(data);
       console.log(`You are in ${data.city}, ${data.country}`);
-
-      return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`);
+      return fetch(`https://restcountries.com/v2/name/${data.country}`);
     })
     .then((res) => {
       if (!res.ok) throw new Error(`Country not found (${res.status})`);
-
       return res.json();
     })
     .then((data) => renderCountry(data[0]))
