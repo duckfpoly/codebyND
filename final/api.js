@@ -1,17 +1,17 @@
-
 const api_url = () => {
-  return "http://localhost/laravel/ndcake/public/api/categories";
+  // return "http://localhost/laravel/ndcake/public/api/categories";
+  return "http://localhost:3000/categories";
 };
 function getId() {
   return new URLSearchParams(window.location.search).get("id");
 }
 const getData = async () => {
   const response = await axios.get(api_url());
-  showData(response.data.data);
+  showData(response.data);
 };
 const showData = (data) => {
   document.querySelector("tbody").innerHTML = data
-    .map(function (item, index) {
+    .map((item, index) => {
       return `
         <tr>
           <td>${index + 1}</td>
@@ -34,7 +34,6 @@ const remove = async (id) => {
   }
 };
 const create = async (name) => {
-  axios;
   await axios.post(api_url(), {
     name_category: name,
   });
@@ -43,7 +42,7 @@ const create = async (name) => {
 const detail = async () => {
   const response = await axios.get(api_url() + "/" + getId());
   document.getElementById("name_category").value =
-    response.data.data.name_category;
+    response.data.name_category;
 };
 const update = async () => {
   await axios.put(api_url() + "/" + getId(), {
